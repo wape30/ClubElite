@@ -1,13 +1,14 @@
 'use strict'
 
 var bcrypt = require('bcrypt-nodejs');
-var User=require('../models/user');
+var User = require('../models/user');
 
 function pruebas(req,res){
   res.status(200).send({
     message: 'Probando una accion del controlador de user del api rest con Node y Mongodb'
   });
 }
+
 
 function saveUser(req,res){
   var user = new User();
@@ -42,7 +43,7 @@ function saveUser(req,res){
             if(!userStored){
               res.status(404).send({message: 'No se ha registrado el usuario'});
             }else{
-              res.status(200).send({message: UserStored});
+              res.status(200).send({user: userStored});
             }
           }
         })
@@ -55,7 +56,50 @@ function saveUser(req,res){
   }
 }
 
+
+function loginUser(req, res){
+    var params = req.body;
+
+    var email = params.email;
+    var password = params.password;
+
+    User.findOne({email: email.toLowerCase()}, (err, user) => {
+        if (err) {
+            res.status(500).send({message: 'Error en la petición '});
+        }else {
+          if (!user) {
+              res.status(404).send({message: 'El usuario no existe '});
+          }else {
+            //vamos a comprobar la contrasena
+            bcrypt.compare(password, user.password, function(err, check){
+              if (check) {
+                //devolver los datos del usuario logeado
+                if (params.gethash) {
+                  // devuelve un token de jwt
+
+
+                }else {
+                    res.status(200).send({user});
+                }
+
+              }else {
+                // dira que la contras;a es incorrecta o no se puede logear
+                  res.status(404).send({message: 'El usuario no ha podido logearse '});
+              }
+
+            });
+          }
+        }
+
+    });
+
+}
+
+
+
+/*para poder usar fuera del fichero los metodos*/
 module.exports = {
   pruebas,
-  saveUser
+  saveUser,
+  loginUser
 };
