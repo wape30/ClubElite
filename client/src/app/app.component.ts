@@ -1,10 +1,19 @@
 import { Component } from '@angular/core';
-
+import { User } from './models/user';
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './app.component.html'
 })
+
+
 export class AppComponent {
-  title = 'Club Elite!';
+  public title = 'Club Elite!';
+  public user: User;
+  public identity;
+  public token;
+
+  constructor(){
+    this.user = User('','','','','','','','ROLE_USER','','','','','');
+  }
+
 }
