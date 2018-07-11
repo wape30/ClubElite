@@ -8,6 +8,12 @@ var EmpresaSchema =  Schema({
   nombre: String,
   descripcion: String,
   image: String
+/*
+Fecha de creación
+Dirección
+Teléfono
+    */
+
 });
 
 module.exports = mongoose.model('empresa', EmpresaSchema);
