@@ -53,8 +53,7 @@ export class AppComponent implements OnInit{
                     }else{
                       // crear elemento en el lcoal storagepara mantener un token disponible
                       localStorage.setItem('token', token);
-                      console.log(this.token);
-                      console.log(this.identity);
+                        this.user = new User('','','','','','','','ROLE_USER','','','','','');
                       // conseguir el tokken
                     }
                         },

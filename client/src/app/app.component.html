@@ -1,15 +1,45 @@
-<div *ngIf="identity" class="navigation col-lg-1">
-  <h1>
-    {{title}}
+<div *ngIf="identity" class="navigation col-lg-12">
+  <h1 class="head-title">
+    <a >
+      {{title}}
+    </a>
   </h1>
-  <span>{{identity.nombre}} {{identity.apellido}}</span>
-  <span class="btn btn-warning" (click)="logout() ">
-    cerrar sesion
-  </span>
+  <nav  id="navigation">
+    <a href="#">
+          Sobre Nosotros
+    </a>
+    <a href="#">
+          Entrenamiento
+    </a>
+    <a href="#">
+          Beneficios
+    </a>
+    <a href="#">
+          Comunidad
+    </a>
+    <a href="#">
+          Negocios
+    </a>
+  </nav>
+
+  <nav id="user_logged">
+    <span>
+        {{identity.nombre}}
+    </span>
+    <span class="btn btn-warning" (click)="logout()">
+      cerrar sesion
+    </span>
+    <a [routerLink]="['/mis-datos']">
+      <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+          Mis datos
+    </a>
+  </nav>
 </div>
 
 <div class="clearfix"></div>
-
+<div *ngIf="identity" class="celtral col-lg-11">
+  <router-outlet></router-outlet>
+</div>
 <div class="col-lg-12" *ngIf="!identity">
     <div class="col-lg-6">
       <h1>Identificate</h1>
